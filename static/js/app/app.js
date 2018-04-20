@@ -3,7 +3,7 @@
 Vue.component('nut-chart', {
   extends: VueChartJs.Bar,
   mounted () {
-  	axios.get('/bootcamp_template/default/get_data2')
+  	axios.get('../default/get_data2')
     	.then(response => {
     		check = response.data
     		console.log(check);
@@ -30,7 +30,7 @@ Vue.component('nut-chart', {
 Vue.component('pie-chart', {
   extends: VueChartJs.Bar,
   mounted () {
-  	axios.get('/bootcamp_template/default/get_data3')
+  	axios.get('../default/get_data3')
     	.then(response => {
     		check = response.data
     		console.log(check);
@@ -54,10 +54,14 @@ Vue.component('pie-chart', {
 	},
 });
 
+// Vue.component('theme-display', {
+	
+// }
+
 Vue.component('bar-chart2', {
   extends: VueChartJs.Bar,
   mounted () {
-  	axios.get('/bootcamp_template/default/get_data')
+  	axios.get('../default/get_data')
     	.then(response => {
     		check = response.data
 	    	labels = Object.keys(check)
