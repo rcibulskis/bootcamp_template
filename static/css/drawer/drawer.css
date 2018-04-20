@@ -1,0 +1,72 @@
+#dash_menu {
+    /*background-image: url('../../images/white_carbonfiber.png');
+  background-repeat: repeat;*/
+    z-index: 9999;
+}
+
+#menu_button_container {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    top: 100px;
+    left: 10px;
+    z-index: 999;
+}
+
+#menu_button {
+    display: block;
+    width: 40px;
+    z-index: 999;
+}
+
+#menu_button {
+    cursor: pointer;
+    padding: 12px 35px 16px 0px;
+}
+
+#menu_button span, #menu_button span:before, #menu_button span:after {
+    cursor: pointer;
+    border-radius: 3px;
+    height: 7px;
+    width: 40px;
+    background: #020202;
+    position: absolute;
+    display: block;
+    content: '';
+}
+
+#menu_button span:before {
+    top: -10px;
+}
+
+#menu_button span:after {
+    bottom: -10px;
+}
+
+#menu_button span, #menu_button span:before, #menu_button span:after {
+    transition: all 500ms ease-in-out;
+}
+
+#menu_button.active span {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+#menu_button.active span:before, #menu_button.active span:after {
+    top: 0;
+}
+
+#menu_button.active span:before {
+    transform: rotate(45deg);
+    background: #e6245e;
+}
+
+#menu_button.active span:after {
+    transform: rotate(-45deg);
+    background: #e6245e;
+}
+
+@media(max-width:767px) {
+    #menu_button_container {}
+    #menu_button {}
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{=response.title or request.application}}</title>
+    <!-- http://dev.w3.org/html5/markup/meta.name.html -->
+    <meta name="application-name" content="{{=request.application}}">
+    <!-- include stylesheets -->
+    <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+    <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
+    <link rel="stylesheet" href="{{=URL('static','css/custom.css', vars=dict(v='1'))}}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <!--[if lt IE 8]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
+    
+<div id="main" v-bind:style="overall_container">
+    <div class="jumbotron"  v-bind:style="style_container_header">
+      <div class="container">
+        <h1 class="display-3">The only gaming systems that matter</h1>
+        <p>This is my assignment. All charts below only show Nintendo's first party software.</p>
+       
+      </div>
+    </div>
+    <div class="container" v-bind:style="style_container">
+        <div class="row">
+            <div class="col-xs-6" v-bind:style="style_graph">
+                <div><nut-chart></nut-chart></div>
+            </div>
+            <div class="col-xs-6" v-bind:style="style_graph">
+                <div><pie-chart></pie-chart></div>
+            </div>
+ 
+        </div>
+        <div class="row">
+            <div class="col-xs-12" v-bind:style="style_graph">
+                <div><bar-chart2></bar-chart2></div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <script>
+      const GETDATA = '{{=URL("default", "get_data")}}'
+    </script>
+    <!-- chartjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
+    <!-- babel -->
+    <script src="{{=URL('static','js/vendor/babel.min.js')}}"></script>
+    <!-- vue -->
+    <script src="{{=URL('static','js/vendor/vue.js')}}"></script>
+    <!-- vuex -->
+    <script src="{{=URL('static','js/vendor/vuex.js')}}"></script>
+    <!-- vue-router -->
+    <script src="{{=URL('static','js/vendor/vuex.js')}}"></script>
+    <!-- axios -->
+    <script src="{{=URL('static','js/vendor/axios.min.js')}}"></script>
+    <!-- app.js -->
+    <script src="{{=URL('static','js/app/app.js')}}"></script>
+    <!--Bootstrap -->
+
+  </body>
+</html>
+
+<!-- <style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 15px;
+        font-size: 18px;
+        min-height: 300px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+</style> -->
