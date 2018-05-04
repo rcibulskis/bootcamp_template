@@ -7,97 +7,42 @@ def get_data():
     import pandas as pd
     import numpy as np
     import os
+    import json
 
     wd = os.getcwd()
     privateDir = wd + '/applications/bootcamp_template/private/data/dataset_1/'
 
-    df = su.read_csv(in_path=privateDir + 'Video_Games_Sales_as_at_22_Dec_2016.csv', sep=',', weight_col='', verbose=False)
+    df = su.read_csv(in_path=privateDir + 'Video_Games_Sales_as_at_22_Dec_2016.csv',
+                     sep=',', weight_col='', verbose=False)
 
-    publisher = 'Nintendo'
+    publisher_selected = request.vars
+
+    publisher = str(publisher_selected['publisherselected'])
+
+    if publisher == "Sony":
+        publisher = "Sony Computer Entertainment"
+    if publisher == "Microsoft":
+        publisher = "Microsoft Game Studios"
 
     systems_array = df.platform.loc[df.publisher == publisher].unique()
 
+    df_temp = df.loc[df['platform'].isin(systems_array)]
+
     output = {}
-    for x in range(0,len(systems_array)):
 
-        output[systems_array[x]] = {}
+    output = df_temp.groupby('platform')[
+        ['global_sales', 'na_sales']].sum().to_dict()
 
-        output[systems_array[x]]['Global_Sales'] = df.global_sales.loc[df['platform'] == systems_array[x]].sum()
-        output[systems_array[x]]['NA_Sales'] = df.na_sales.loc[df['platform'] == systems_array[x]].sum()
+    output2 = df_temp.groupby(
+        'genre')[['critic_score']].mean().dropna().to_dict()
 
-    output = pd.DataFrame(output).to_json()
+    output3 = df_temp.groupby(
+        'rating')[['critic_score']].mean().dropna().to_dict()
 
-    return output
+    full_dict = json.dumps(dict(sales=output, genre=output2, ratings=output3))
 
-def get_data2():
-    import simutils as su
-    import pandas as pd
-    import numpy as np
-    import os
+    return full_dict
 
-    wd = os.getcwd()
-    privateDir = wd + '/applications/bootcamp_template/private/data/dataset_1/'
-
-    df = su.read_csv(in_path=privateDir + 'Video_Games_Sales_as_at_22_Dec_2016.csv', sep=',', weight_col='', verbose=False)
-
-    ratings_array = df.rating.dropna().unique()
-
-    publisher = 'Nintendo'
-
-    #critic score past 2005
-
-    temp_df = df[df['year_of_release'] >= 2005]
-    temp_df = df[df['publisher'] == publisher]
-    temp_df = temp_df['critic_score'].dropna()
-
-    output2 = {}
-    
-    for x in range(0,len(ratings_array)):
-
-        output2[ratings_array[x]] = {}
-
-        output2[ratings_array[x]]["Mean_Ratings"] = df.critic_score.loc[df['rating'] == ratings_array[x]].mean()
-
-    #import ipdb;ipdb.set_trace()
-    output2 = pd.DataFrame(output2).to_json()
-
-
-
-    return output2
-
-def get_data3():
-    import simutils as su
-    import pandas as pd
-    import numpy as np
-    import os
-
-    wd = os.getcwd()
-    privateDir = wd + '/applications/bootcamp_template/private/data/dataset_1/'
-
-    df = su.read_csv(in_path=privateDir + 'Video_Games_Sales_as_at_22_Dec_2016.csv', sep=',', weight_col='', verbose=False)
-
-    genre_array = df.genre.dropna().unique()
-
-    publisher = 'Nintendo'
-
-    #critic score past 2005
-
-    temp_df = df[df['year_of_release'] >= 2005]
-    temp_df = df[df['publisher'] == publisher]
-    temp_df = temp_df['critic_score'].dropna()
-
-    output3 = {}
-    
-    for x in range(0,len(genre_array)):
-
-        output3[genre_array[x]] = {}
-
-        output3[genre_array[x]]["Mean_Ratings"] = df.critic_score.loc[df['genre'] == genre_array[x]].mean()
-
-    #import ipdb;ipdb.set_trace()
-    output3 = pd.DataFrame(output3).to_json()
-    
-    return output3
 
 def user():
     """
@@ -135,8 +80,3 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-
-
-
-
-

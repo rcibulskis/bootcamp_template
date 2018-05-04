@@ -1,1 +1,39 @@
 {{extend 'layout.html'}}
+<div id="main" v-bind:style="overall_container">
+    <div class="jumbotron" v-bind:style="style_container_header">
+        <div class="container">
+            <h1 class="display-3">Data Tools Bootcamp</h1>
+            <p>This is my assignment. All charts below only show
+                <%publisherselected%>'s first party software.</p>
+
+        </div>
+        <select name='publishers' v-on:change="postNow" v-model="publisherselected">
+            <option v-for="row in publishers" :value="row" :publishersselected="row">
+                <%row%>
+            </option>
+        </select>
+    </div>
+    <div class="container" v-bind:style="style_container">
+        <div class="row">
+            <div class="col-xs-6" v-bind:style="style_graph">
+                <div>
+                    <nut-chart :ratingsLabel="ratingslabel" :criticalscore="criticalscore" :done="done"></nut-chart>
+                </div>
+            </div>
+            <div class="col-xs-6" v-bind:style="style_graph">
+                <div>
+                    <pie-chart :genrelabel="genrelabel" :criticscore="criticscore" :done="done"></pie-chart>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12" v-bind:style="style_graph">
+                <div>
+                    <bar-chart2 :global="global_sales" :na="na_sales" :label="label" :done="done"></bar-chart2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{=URL('static','js/app/app.js')}}"></script>
