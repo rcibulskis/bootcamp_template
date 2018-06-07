@@ -1,6 +1,6 @@
 Vue.component('bar-chart2', {
   extends: VueChartJs.Bar,
-  props: ['label', 'global', 'na', 'done'],
+  props: ['label', 'data1', 'done'],
   watch: {
     done: function done() {
       if (this.$data._chart) {
@@ -8,66 +8,7 @@ Vue.component('bar-chart2', {
       }
       this.renderChart({
         labels: this.label,
-        datasets: [{
-            label: 'Global Sales in units sold',
-            backgroundColor: "#6D7993",
-            data: this.global,
-          },
-          {
-            label: 'North American Sales in units sold',
-            backgroundColor: '#9099A2',
-            data: this.na,
-          }
-        ]
-      }, {
-        responsive: true,
-        maintainAspectRatio: false
-      })
-    }
-  },
-
-});
-
-Vue.component('nut-chart', {
-  extends: VueChartJs.Bar,
-  props: ['ratingslabel', 'criticalscore', 'done'],
-  watch: {
-    done: function done() {
-      if (this.$data._chart) {
-        this.$data._chart.destroy();
-      }
-      this.renderChart({
-        labels: this.ratingslabel,
-        datasets: [{
-          label: 'Average critic score per ESRB ratings',
-          backgroundColor: "#6D7993",
-          data: this.criticalscore,
-        }]
-      }, {
-        responsive: true,
-        maintainAspectRatio: false
-      })
-    }
-  },
-
-});
-
-
-Vue.component('pie-chart', {
-  extends: VueChartJs.Bar,
-  props: ['genrelabel', 'criticscore', 'done'],
-  watch: {
-    done: function done() {
-      if (this.$data._chart) {
-        this.$data._chart.destroy();
-      }
-      this.renderChart({
-        labels: this.genrelabel,
-        datasets: [{
-          label: 'Average critic score per genre',
-          backgroundColor: "#6D7993",
-          data: this.criticscore,
-        }]
+        datasets: this.data1
       }, {
         responsive: true,
         maintainAspectRatio: false
@@ -88,6 +29,9 @@ var app = new Vue({
     criticalscore: [],
     criticscore: [],
     genrelabel: [],
+    ratingsArray: [],
+    genreArray: [],
+    salesArray: [],
     publishers: ["Nintendo", "Sony", "Microsoft"],
     publisherselected: 'Nintendo',
     include: "True",
@@ -159,6 +103,35 @@ var app = new Vue({
           _this.criticalscore = criticalscore
           _this.criticscore = criticscore
           _this.genrelabel = genrelabel
+
+          var ratingsArray = [];
+          var genreArray = [];
+          var salesArray = [];
+
+          _this.ratingsArray = [{
+            label: 'Average critic score per ESRB ratings',
+            backgroundColor: "#6D7993",
+            data: _this.criticalscore
+          }];
+
+          _this.genreArray = [{
+            label: 'Average critic score per genre',
+            backgroundColor: "#6D7993",
+            data: _this.criticscore
+          }];
+
+          _this.salesArray = [{
+              label: 'Global Sales in units sold',
+              backgroundColor: "#6D7993",
+              data: _this.global_sales
+            },
+            {
+              label: 'North America Sales in units sold',
+              backgroundColor: "#9099A2",
+              data: _this.na_sales
+            }
+          ];
+
           _this.done = "Done"
         });
     },

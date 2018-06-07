@@ -46,19 +46,19 @@
             <div class="row">
                 <div class="col-xs-6" v-bind:style="style_graph">
                     <div>
-                        <nut-chart :ratingsLabel="ratingslabel" :criticalscore="criticalscore" :done="done"></nut-chart>
+                        <bar-chart2 :label="ratingslabel" :data1="ratingsArray" :done="done"></bar-chart2>
                     </div>
                 </div>
                 <div class="col-xs-6" v-bind:style="style_graph">
                     <div>
-                        <pie-chart :genrelabel="genrelabel" :criticscore="criticscore" :done="done"></pie-chart>
+                        <bar-chart2 :label="genrelabel" :data1="genreArray" :done="done"></bar-chart2>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12" v-bind:style="style_graph">
                     <div>
-                        <bar-chart2 :global="global_sales" :na="na_sales" :label="label" :done="done"></bar-chart2>
+                        <bar-chart2 :data1="salesArray" :label="label" :done="done"></bar-chart2>
                     </div>
                 </div>
             </div>
